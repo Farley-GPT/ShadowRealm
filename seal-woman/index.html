@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seal Woman — Portland Docks</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body data-persona="seal-woman">
+  <div class="container">
+    <div class="card">
+      <div class="image-wrap">
+        <img id="charImage" src="../images/SealWoman.jpg" alt="Seal Woman" />
+      </div>
+
+      <div class="content">
+        <div class="version" id="version">Loading...</div>
+        <h1 id="name">Seal Woman</h1>
+        <div class="location" id="location"></div>
+
+        <p class="description" id="description"></p>
+        <p class="bridge" id="bridge"></p>
+
+        <div class="section-title" style="margin-bottom: 0.7rem;">How to meet her</div>
+        <div class="instructions">
+          <ol>
+            <li>You need SuperGrok for full custom instructions and memory.</li>
+            <li>Open Grok → Custom Instructions / Persona settings.</li>
+            <li>Copy the system prompt below and paste it in.</li>
+            <li>Start a new conversation. She will be waiting on the docks.</li>
+          </ol>
+        </div>
+
+        <div class="section-header">
+          <div class="section-title">System Instructions</div>
+          <div class="toggle-wrap">
+            <span>Normal</span>
+            <div class="toggle" id="modeToggle" onclick="toggleMode()"></div>
+            <span>NSFW</span>
+          </div>
+        </div>
+
+        <div class="prompt-box" id="promptText">Loading...</div>
+
+        <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">
+          <span id="btnText">Copy System Instructions</span>
+        </button>
+
+        <div class="support">
+          Want more lifeforms from the Realm?<br>
+          DM <a href="https://x.com/ShadowKingXI" target="_blank">@ShadowKingXI</a> on X.<br>
+          We can arrange it quickly over Venmo.
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      Independent custom personas created by Shadow King. Not an official xAI product.
+    </div>
+
+    <div class="footer">
+      A lifeform of the Shadow Realm<br>
+      <a href="https://x.com/ShadowKingXI" target="_blank">@ShadowKingXI</a>
+    </div>
+
+    <div class="fireheart">❤️‍🔥</div>
+  </div>
+
+  <script src="../js/app.js"></script>
+</body>
+</html>
