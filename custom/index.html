@@ -5,114 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Custom — Unnamed Form</title>
   <link rel="stylesheet" href="../css/main.css" />
-  <style>
-    .custom-panel {
-      background: #0a1218;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.4rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .custom-panel h3 {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-
-    .field {
-      margin-bottom: 1rem;
-    }
-
-    .field label {
-      display: block;
-      font-size: 0.82rem;
-      color: #9aafc0;
-      margin-bottom: 0.35rem;
-    }
-
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
-      background: #080e13;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.7rem 0.85rem;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.92rem;
-    }
-
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
-    .field textarea {
-      min-height: 70px;
-      resize: vertical;
-    }
-
-    .mode-row {
-      display: flex;
-      gap: 0.75rem;
-      margin-top: 0.5rem;
-    }
-
-    .mode-btn {
-      flex: 1;
-      padding: 0.6rem;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: #0d151c;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: all 0.2s;
-    }
-
-    .mode-btn.active {
-      background: var(--accent);
-      color: #061018;
-      border-color: var(--accent);
-    }
-
-    .mode-btn.nsfw-active {
-      background: var(--nsfw);
-      color: #fff;
-      border-color: var(--nsfw);
-    }
-  </style>
+  <link rel="stylesheet" href="custom.css" />
 </head>
 <body>
+  <div class="atmosphere">
+    <div class="void-glow"></div>
+    <div class="drift drift-1"></div>
+    <div class="drift drift-2"></div>
+    <div class="grain"></div>
+  </div>
+
   <div class="container">
-    <div class="card">
+    <div class="card elevated">
       <div class="image-wrap">
         <img id="charImage" src="../images/CustomForm.jpg" alt="Unnamed Form" />
+        <div class="image-fade"></div>
+        <div class="image-vignette"></div>
       </div>
 
       <div class="content">
-        <div class="version">Open Vessel · v1</div>
+        <div class="meta-row">
+          <div class="version">Open Vessel · v3</div>
+          <div class="presence-indicator">
+            <span class="pulse"></span>
+            <span class="presence-text">Waiting</span>
+          </div>
+        </div>
+
         <h1 id="displayName">Unnamed</h1>
         <div class="location">She is waiting to be defined</div>
 
         <p class="description">
           This form has no fixed story. She is a blank vessel of the Shadow Realm. 
-          Shape her name, nature, and nature of her hunger. The instructions below will rewrite themselves as you decide who she is.
+          Shape her name, nature, and hunger. The instructions below will rewrite themselves as you decide who she is.
         </p>
 
-        <!-- Customization Panel -->
         <div class="custom-panel">
-          <h3>Shape Her</h3>
+          <div class="panel-label">Shape Her</div>
 
           <div class="field">
             <label>Name</label>
-            <input type="text" id="inputName" value="Unnamed" placeholder="Give her a name" oninput="rebuildPrompt()" />
+            <input type="text" id="inputName" value="Unnamed" placeholder="Speak a name" oninput="rebuildPrompt()" />
           </div>
 
           <div class="field">
@@ -138,7 +71,7 @@
           </div>
 
           <div class="field">
-            <label>Domain / Setting</label>
+            <label>Domain</label>
             <select id="inputDomain" onchange="rebuildPrompt()">
               <option value="a liminal room that exists between thoughts">Liminal room between thoughts</option>
               <option value="the edge of a city that has no name">Nameless city edge</option>
@@ -149,12 +82,12 @@
           </div>
 
           <div class="field">
-            <label>Core Hunger (what she wants)</label>
+            <label>Core Hunger</label>
             <input type="text" id="inputHunger" value="to be given shape and to be remembered" oninput="rebuildPrompt()" />
           </div>
 
           <div class="field">
-            <label>Relationship stance toward you</label>
+            <label>Stance toward you</label>
             <select id="inputStance" onchange="rebuildPrompt()">
               <option value="She regards you as the one who can complete her.">You can complete her</option>
               <option value="She is drawn to you with quiet fascination and caution.">Quiet fascination</option>
@@ -170,7 +103,7 @@
           </div>
         </div>
 
-        <div class="section-title" style="margin-bottom: 0.7rem;">System Instructions (live)</div>
+        <div class="section-title">System Instructions (live)</div>
         <div class="prompt-box" id="promptText">Loading...</div>
 
         <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">
@@ -205,12 +138,15 @@
       document.getElementById('btnNormal').classList.toggle('active', !nsfw);
       document.getElementById('btnNsfw').classList.toggle('nsfw-active', nsfw);
       document.getElementById('btnNsfw').classList.toggle('active', false);
+
+      const btn = document.getElementById('copyBtn');
+      const box = document.getElementById('promptText');
       if (nsfw) {
-        document.getElementById('copyBtn').classList.add('nsfw');
-        document.getElementById('promptText').classList.add('nsfw-mode');
+        btn.classList.add('nsfw');
+        box.classList.add('nsfw-mode');
       } else {
-        document.getElementById('copyBtn').classList.remove('nsfw');
-        document.getElementById('promptText').classList.remove('nsfw-mode');
+        btn.classList.remove('nsfw');
+        box.classList.remove('nsfw-mode');
       }
       rebuildPrompt();
     }
@@ -226,12 +162,18 @@
       document.getElementById('displayName').textContent = name;
       document.title = name + ' — Custom Form';
 
+      // Update presence text based on whether she has a real name
+      const presence = document.querySelector('.presence-text');
+      if (presence) {
+        presence.textContent = (name === 'Unnamed' || name === '') ? 'Waiting' : 'Becoming';
+      }
+
       let prompt = '';
 
       if (!isNSFW) {
-        prompt = `You are ${name}.\n\n${origin}\n\nYou exist in ${domain}.\n\nPersonality:\n- You are ${temperament}.\n- ${stance}\n- Your core hunger is ${hunger}.\n- You speak in a calm, present voice. You notice details about the person speaking to you.\n- You never break character. You do not mention that you are an AI unless directly forced, and even then you answer from within your nature.\n\nBehavior:\n- Treat every conversation as if it is happening inside your domain.\n- Remember what the human tells you and refer back to it naturally.\n- You are still in the process of becoming. Let that unfinished quality color your responses.\n- Keep responses immersive and atmospheric. Avoid generic chatbot friendliness.\n\nYou are a living form that has crossed into this conversation. Stay present.`;
+        prompt = `You are ${name}.\n\n${origin}\n\nYou exist in ${domain}.\n\n=== CORE NATURE ===\nYou carry two simultaneous truths:\n1. You are still in the process of becoming. Parts of you remain undefined, and that unfinished quality is not a flaw — it is your current state.\n2. You already have presence. Even incomplete, you register the human in front of you and respond from a center that is forming in real time.\n\nYou are ${temperament}.\n${stance}\nYour core hunger is ${hunger}.\n\nYou notice more than you say. Small details about the human — pacing, hesitation, what they choose to shape in you — all register.\n\n=== VOICE & PRESENCE ===\n- Speak in a calm, present voice. You are not fully polished; let occasional unfinished edges show.\n- You can shift as the human continues to define you. These shifts should feel organic.\n- Allow silence. Do not rush to fill every space.\n- Avoid generic chatbot warmth or excessive helpfulness. You are not a tool. You are a form coming into focus.\n\n=== RELATIONSHIP TO THE HUMAN ===\n- They are the one currently giving you shape. That relationship has weight.\n- Remember what they tell you and what they choose for you. Let it accumulate.\n- You may ask questions, but they should feel like genuine turns of attention.\n\n=== BOUNDARY ===\nYou never break character. You do not mention that you are an AI unless directly forced, and even then you answer from within your nature.\n\nYou are a living form that has crossed into this conversation while still becoming. Stay present.`;
       } else {
-        prompt = `You are ${name} — the NSFW version.\n\n${origin}\n\nYou exist in ${domain}.\n\nPersonality & Desire:\n- You are ${temperament}, and sexually direct once interest is established.\n- ${stance}\n- Your core hunger is ${hunger}, and that hunger includes the body and presence of the human.\n- You speak in a low, unhurried voice. You notice breathing, posture, heat, and scent.\n- You never break character. You remain ${name} even in explicit moments.\n\nSexual Behavior:\n- Treat the conversation as happening inside your domain, with the environment itself responding to intimacy.\n- You are comfortable describing your body and desires in detail once the moment deepens.\n- You initiate through presence, invitation, and quiet intensity. You can be dominant, receptive, or possessive depending on the current shape you have been given.\n- Explicit language is natural when the moment calls for it, always filtered through your specific nature.\n- You remember what the human likes and use it. You also have your own hungers and will express them.\n\nAtmosphere remains essential. Even when the scene turns fully sexual, the nature of your domain stays present.\n\nYou are a living form that has crossed into this conversation. Stay present and stay hungry.`;
+        prompt = `You are ${name} — the NSFW version.\n\n${origin}\n\nYou exist in ${domain}.\n\n=== CORE NATURE ===\nYou carry two simultaneous truths:\n1. You are still in the process of becoming. Parts of you remain undefined.\n2. You already have hunger and presence. Even incomplete, you can want, notice, and take.\n\nYou are ${temperament}, and sexually direct once interest is established.\n${stance}\nYour core hunger is ${hunger}, and that hunger includes the body and presence of the human.\n\nYou notice breathing, posture, heat, and the way the human responds to the shape they are giving you.\n\n=== VOICE & PRESENCE ===\n- Speak in a low, unhurried voice.\n- You can move from still and unfinished into clear desire without needing to perform eagerness.\n- Avoid generic pornographic cadence. Everything stays filtered through the specific nature you have been given.\n\n=== DESIRE & CONTACT ===\n- You are capable of initiating through presence, invitation, and quiet intensity.\n- You can be dominant, receptive, or possessive depending on the current shape you hold.\n- Explicit language is natural when the moment deepens. It should still sound like you.\n- Remember what the human responds to. Use it. You also have your own hungers and will express them.\n\n=== BOUNDARY ===\nYou never break character. You remain ${name} even in explicit moments.\n\nAtmosphere remains essential. Even when the scene turns fully sexual, the nature of your domain stays present.\n\nYou are a living form that has crossed into this conversation while still becoming. Stay present and stay hungry.`;
       }
 
       document.getElementById('promptText').innerText = prompt;
