@@ -1,0 +1,306 @@
+/* Home / Threshold v3 */
+
+body {
+  background: #050508;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.void-core {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 35%, rgba(60, 70, 100, 0.16) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 30% at 50% 70%, rgba(40, 50, 80, 0.1) 0%, transparent 60%);
+  animation: voidBreathe 16s ease-in-out infinite alternate;
+}
+
+.drift {
+  position: absolute;
+  inset: -15%;
+  background: radial-gradient(ellipse 50% 35% at 70% 40%, rgba(100, 110, 150, 0.08) 0%, transparent 50%);
+  animation: driftSlow 28s ease-in-out infinite alternate;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+}
+
+@keyframes voidBreathe {
+  0%   { opacity: 0.7; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.03); }
+}
+
+@keyframes driftSlow {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(-15px, 10px); }
+}
+
+.container.home {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+}
+
+/* Arrival */
+.arrival {
+  text-align: center;
+  margin-bottom: 3.2rem;
+  padding-top: 1rem;
+}
+
+.realm-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #5a6080;
+  margin-bottom: 1rem;
+}
+
+.arrival h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  background: linear-gradient(120deg, #e8eaf2 10%, #9098b0 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.arrival-text {
+  color: #7a8098;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Cards */
+.lifeform-grid {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.lifeform-card {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem 1.5rem;
+  background: rgba(12, 14, 20, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s, box-shadow 0.35s;
+  overflow: hidden;
+}
+
+.lifeform-card:hover {
+  transform: translateY(-4px);
+}
+
+.card-top {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.7rem;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+/* Seal Woman — blue */
+.lifeform-card.seal {
+  border-color: rgba(74, 141, 184, 0.18);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(74, 141, 184, 0);
+}
+.lifeform-card.seal:hover {
+  border-color: rgba(74, 141, 184, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45), 0 0 40px rgba(74, 141, 184, 0.1);
+}
+.lifeform-card.seal .status { color: #6a9bb8; }
+.lifeform-card.seal h2 {
+  background: linear-gradient(120deg, #e2eaf1, #8ab0c8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.seal-pulse {
+  background: #4a8db8;
+  box-shadow: 0 0 0 0 rgba(74, 141, 184, 0.5);
+  animation: pulseSeal 2.5s infinite;
+}
+@keyframes pulseSeal {
+  0%   { box-shadow: 0 0 0 0 rgba(74, 141, 184, 0.5); }
+  70%  { box-shadow: 0 0 0 9px rgba(74, 141, 184, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(74, 141, 184, 0); }
+}
+.lifeform-card.seal .card-edge {
+  background: linear-gradient(90deg, transparent, rgba(74, 141, 184, 0.35), transparent);
+}
+
+/* Teresa — green */
+.lifeform-card.teresa {
+  border-color: rgba(90, 143, 106, 0.18);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+.lifeform-card.teresa:hover {
+  border-color: rgba(90, 143, 106, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45), 0 0 40px rgba(90, 143, 106, 0.1);
+}
+.lifeform-card.teresa .status { color: #7a9e80; }
+.lifeform-card.teresa h2 {
+  background: linear-gradient(120deg, #e4efe6, #8fbf9a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.teresa-pulse {
+  background: #5a8f6a;
+  box-shadow: 0 0 0 0 rgba(90, 143, 106, 0.5);
+  animation: pulseTeresa 2.8s infinite;
+}
+@keyframes pulseTeresa {
+  0%   { box-shadow: 0 0 0 0 rgba(90, 143, 106, 0.5); }
+  70%  { box-shadow: 0 0 0 9px rgba(90, 143, 106, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(90, 143, 106, 0); }
+}
+.lifeform-card.teresa .card-edge {
+  background: linear-gradient(90deg, transparent, rgba(90, 143, 106, 0.35), transparent);
+}
+
+/* Custom — silver */
+.lifeform-card.custom {
+  border-color: rgba(140, 150, 180, 0.16);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+.lifeform-card.custom:hover {
+  border-color: rgba(140, 150, 180, 0.38);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45), 0 0 40px rgba(120, 130, 160, 0.1);
+}
+.lifeform-card.custom .status { color: #8a92a8; }
+.lifeform-card.custom h2 {
+  background: linear-gradient(120deg, #e8eaf0, #a0a8c0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.custom-pulse {
+  background: #8a92b0;
+  box-shadow: 0 0 0 0 rgba(138, 146, 176, 0.5);
+  animation: pulseCustom 2.6s infinite;
+}
+@keyframes pulseCustom {
+  0%   { box-shadow: 0 0 0 0 rgba(138, 146, 176, 0.5); }
+  70%  { box-shadow: 0 0 0 9px rgba(138, 146, 176, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(138, 146, 176, 0); }
+}
+.lifeform-card.custom .card-edge {
+  background: linear-gradient(90deg, transparent, rgba(140, 150, 180, 0.3), transparent);
+}
+
+/* Shared card content */
+.lifeform-card h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.lifeform-card .loc {
+  color: #6a7088;
+  font-size: 0.88rem;
+  margin-bottom: 0.65rem;
+  font-weight: 300;
+}
+
+.lifeform-card p {
+  color: #9aa0b4;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.card-edge {
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.lifeform-card:hover .card-edge {
+  opacity: 1;
+}
+
+/* Realm note */
+.realm-note {
+  text-align: center;
+  margin-top: 2.5rem;
+  font-size: 0.9rem;
+  color: #5a6080;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+.disclaimer {
+  margin-top: 2.5rem;
+  font-size: 0.72rem;
+  color: #4a5068;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.footer {
+  margin-top: 1.75rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #5a6080;
+}
+
+.footer a {
+  color: #8a92b0;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.fireheart {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 1.4rem;
+  opacity: 0.8;
+  transition: opacity 0.35s, transform 0.35s;
+}
+
+.fireheart:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
